@@ -1,0 +1,155 @@
+%%%% ijcai19.tex
+
+\typeout{IJCAI-19 Instructions for Authors}
+
+% These are the instructions for authors for IJCAI-19.
+
+\documentclass{article}
+\pdfpagewidth=8.5in
+\pdfpageheight=11in
+% The file ijcai19.sty is NOT the same than previous years'
+\usepackage{rapport}
+
+% Use the postscript times font!
+\usepackage{times}
+\usepackage{soul}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[small]{caption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\urlstyle{same}
+
+% the following package is optional:
+%\usepackage{latexsym} 
+
+% Following comment is from ijcai97-submit.tex:
+% The preparation of these files was supported by Schlumberger Palo Alto
+% Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+% Shirley Jowell, of Morgan Kaufmann Publishers, and Peter F.
+% Patel-Schneider, of AT\&T Bell Laboratories collaborated on their
+% preparation.
+
+% These instructions can be modified and used in other conferences as long
+% as credit to the authors and supporting agencies is retained, this notice
+% is not changed, and further modification or reuse is not restricted.
+% Neither Shirley Jowell nor Peter F. Patel-Schneider can be listed as
+% contacts for providing assistance without their prior permission.
+
+% To use for other conferences, change references to files and the
+% conference appropriate and use other authors, contacts, publishers, and
+% organizations.
+% Also change the deadline and address for returning papers and the length and
+% page charge instructions.
+% Put where the files are available in the appropriate places.
+
+\title{Titre}
+
+% Single author syntax
+\iffalse
+\author{
+    Sarit Kraus
+    \affiliations
+    Department of Computer Science, Bar-Ilan University, Israel \emails
+    pcchair@ijcai19.org
+}
+\fi
+
+% Multiple author syntax (remove the single-author syntax above and the \iffalse ... \fi here)
+% Check the ijcai19-multiauthor.tex file for detailed instructions
+\author{
+Antoine Gaulin\and
+Othman Mounir\and
+Arthur Pulvéricl\And
+Anis Redjdal\\
+\affiliations
+Polytechnique Montréal\\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Décrire la thèse et le résultat en moins de 200 mots. Le document est de 6 pages maximum.
+\end{abstract}
+
+\section{Introduction}
+
+Un petit résumé des travaux antérieurs qui existent dans la littérature.
+
+\subsection{Exemples de citation}
+
+La gestion des références est dans le .bib ~\cite{gottlob:nonmon}
+
+\section{Approche théorétique}
+
+Un résumé de l'approche théorétique formant la base du sujet du projet.
+
+\subsection{Exemple de formule}
+
+\begin{align}
+    x =& \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \nonumber\\
+    + & \prod_{i=1}^n \sum_{j=1}^n j_i
+\end{align}
+
+\section{Discussion}
+
+Discussion de nos expériences. Incluant des figures, des tableaux de nos résultats et un lien vers Github.
+
+\subsection{Exemples de tableau}
+
+\begin{table}
+\centering
+\begin{tabular}{lrr}  
+\toprule
+Scenario  & $\delta$ (s) & Runtime (ms) \\
+\midrule
+Paris       & 0.1  & 13.65      \\
+            & 0.2  & 0.01       \\
+New York    & 0.1  & 92.50      \\
+Singapore   & 0.1  & 33.33      \\
+            & 0.2  & 23.01      \\
+\bottomrule
+\end{tabular}
+\caption{Booktabs table}
+\label{tab:booktabs}
+\end{table}
+
+\subsection{Exemple d'algorithme}
+
+\begin{algorithm}[tb]
+\caption{Example algorithm}
+\label{alg:algorithm}
+\textbf{Input}: Your algorithm's input\\
+\textbf{Parameter}: Optional list of parameters\\
+\textbf{Output}: Your algorithm's output
+\begin{algorithmic}[1] %[1] enables line numbers
+\STATE Let $t=0$.
+\WHILE{condition}
+\STATE Do some action.
+\IF {conditional}
+\STATE Perform task A.
+\ELSE
+\STATE Perform task B.
+\ENDIF
+\ENDWHILE
+\STATE \textbf{return} solution
+\end{algorithmic}
+\end{algorithm}
+
+\section{Analyse}
+
+Une analyze critique de l'approche que vosu avez utilisée pour apprendre le sujet que vous avez sélectionné.
+
+
+%% The file named.bst is a bibliography style file for BibTeX 0.99c
+\bibliographystyle{named}
+\bibliography{rapport}
+
+\end{document}
+
