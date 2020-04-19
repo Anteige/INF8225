@@ -16,8 +16,8 @@ def loadDataset(path):
                 X_size = rows*cols*colors
                 X = X.reshape(X_size)
                 datasetX.append(X)
-                datasetY.append(folder)
-                if i == 20: 
+                datasetY.append(folder.split("-")[1])
+                if i == 100: 
                     #print("fin de la recuperation des images")
                     break
                 i += 1
