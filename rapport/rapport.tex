@@ -76,17 +76,30 @@ Polytechnique Montréal\\
 
 \begin{abstract}
 Décrire la thèse et le résultat en moins de 200 mots. Le document est de 6 pages maximum.
-L'article a pour but de présenter un modèle de classification et d'étiquetage d'images de chiens en fonction de leur race.
+L'article a pour but de présenter un modèle de classification et d'étiquetage d'images
+de chiens en fonction de leur race.
 \end{abstract}
 
 \section{Introduction}
 
 \subsection{Motivations}
 
-Les réseaux de neurones convolutifs permettent de faire de la classification d'image de façon rapide et performante. Ainsi, avec des images de chiens, il est possible de calculer la probabilité qu'un canidé présent dans une image appartienne à une race plutôt qu’une autre. Pour aider la SPCA à se créer un inventaire en ligne de tous ses chiens, et encourager le commerce en ligne, nous voulons concevoir un réseau de neurones qui permet de faire de la classification automatique à partir des images de chien. De cette façon, les clients souhaitant faire l'acquisition d'une race spécifique auront plus de facilité à la retrouver sur leur site internet.
+Les réseaux de neurones convolutifs permettent de faire de la classification d'image
+de façon rapide et performante. Ainsi, avec des images de chiens, il est possible de
+calculer la probabilité qu'un canidé présent dans une image appartienne à une race
+plutôt qu’une autre. Pour aider la SPCA à se créer un inventaire en ligne de tous 
+ses chiens, et encourager le commerce en ligne, nous voulons concevoir un réseau
+de neurones qui permet de faire de la classification automatique à partir des images
+de chien. De cette façon, les clients souhaitant faire l'acquisition d'une race
+spécifique auront plus de facilité à la retrouver sur leur site internet.
 
-Dans la pratique, un réseau de neurones convolutif classique présente des difficultés pour la classification d’objets présentant de nombreuses caractéristiques communes, ce qui est le cas pour les chiens de la base de données. La Fig. \ref{1} illustre bien ce problème : les chiens présentés ont beaucoup de caractéristiques communes mais n’appartiennent pas à la même race. L’objectif ici est donc d’implémenter un modèle capable d’obtenir des performances acceptables pour la prédiction de races de chien.
-
+Dans la pratique, un réseau de neurones convolutif classique présente des
+difficultés pour la classification d’objets présentant de nombreuses caractéristiques
+communes, ce qui est le cas pour les chiens de la base de données. La Fig. \ref{1}
+illustre bien ce problème : les chiens présentés ont beaucoup de caractéristiques
+communes, mais n’appartiennent pas à la même race. L’objectif ici est donc
+d’implémenter un modèle capable d’obtenir des performances acceptables pour
+la prédiction de races de chien.
 
 \begin{figure}[htbp]
     \centering
@@ -97,24 +110,49 @@ Dans la pratique, un réseau de neurones convolutif classique présente des diff
     \label{1} 
 \end{figure} 
 
-
 \subsection{Travaux antérieurs}
 % Un petit résumé des travaux antérieurs qui existent dans la littérature.
-L'article \textit{Using Convolutional Neural Networks to Classify Dog Breeds} ~\cite{fcdh_FinalReport} est un incontournable. Concrètement, les auteurs proposent  deux architectures différentes capables de différencier les petites variations entre les races. Le premier modèle est basé sur l'archtiecture de LeNet, dont chaque couche de convolution est un filtre avec 2 paramètres : le nombre de pixels qu’elles prennent en entrée et le nombre de canaux en sortie. Le deuxième modèle reprend l'architecture de GoogLeNet, dont chaque couche de convolution est une combinaison de filtres eux-mêmes composés de réseaux de neurones.
+L'article \textit{Using Convolutional Neural Networks to Classify Dog Breeds}
+~\cite{fcdh_FinalReport} est un incontournable. Concrètement, les auteurs
+proposent  deux architectures différentes capables de différencier les petites
+variations entre les races. Le premier modèle est basé sur l'architecture de LeNet,
+dont chaque couche de convolution est un filtre avec 2 paramètres : le nombre de
+pixels qu’elles prennent en entrée et le nombre de canaux en sortie. Le deuxième
+modèle reprend l'architecture de GoogLeNet, dont chaque couche de convolution
+est une combinaison de filtres eux-mêmes composés de réseaux de neurones.
 
-Un autre papier intéressant est \textit{Dog Breed Identification}. ~\cite{output} Il y est présenté un projet qui ayant pour but de prédire les races des chiens à partir d’images. Ce projet utilise des techniques d’apprentissage automatique et de vision par ordinateur. Un réseau de neurones convolutionnel permet dans un premier temps d’identifier les points clés des visages des chiens. Ensuite, des descripteurs SIFT (Scale-Invariant Feature Transform) et des histogrammes de couleur utilisent ces points clés pour extraire des features. Enfin, un classificateur de type machine à vecteur de support (SVM, Support-Vector Machine) prédit la race du chien avec une précision de 52\%. Il est à noter que dans 90\% des cas, la race du chien à trouver est présente dans les 10 prédictions les plus probables (sur 133 races au total dans la base de données). Ces performances sont supérieures à ce que peuvent faire la plupart des humains.
+Un autre papier intéressant est \textit{Dog Breed Identification}. ~\cite{output} Il 
+y est présenté un projet ayant pour but de prédire les races des chiens à partir
+d’images. Ce projet utilise des techniques d’apprentissage automatique et de vision
+par ordinateur. Un réseau de neurones convolutionnel permet dans un premier
+temps d’identifier les points clés des visages des chiens. Ensuite, des descripteurs
+SIFT (Scale-Invariant Feature Transform) et des histogrammes de couleur utilisent 
+ces points clés pour extraire des features. Enfin, un classificateur de type machine 
+à vecteur de support (SVM, Support-Vector Machine) prédit la race du chien avec
+une précision de 52\%. Il est à noter que dans 90\% des cas, la race du chien à 
+trouver est présente dans les 10 prédictions les plus probables (sur 133 races au
+total dans la base de données). Ces performances sont supérieures à ce que
+peuvent faire la plupart des humains.
 
-Dans ce travail, nous faisons le choix d'utiliser un modèle proposé par le premier article. En effet, la simplicité d’architecture et leurs bonnes performances sont totalement adaptées aux contraintes que nous rencontrons. Nous allons ajouter un algorithme qui applique un étiquette sur l'image.
+Dans ce travail, nous faisons le choix d'utiliser un modèle proposé par le premier
+article. En effet, la simplicité d’architecture et leurs bonnes performances sont
+totalement adaptées aux contraintes que nous rencontrons. Nous allons ajouter un
+algorithme qui applique une étiquette sur l'image.
 
 \section{Approche théorétique}
 % Un résumé de l'approche théorétique formant la base du sujet du projet.
-Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose de simple, qui permet toutefois de comprendre le fonctionnement d'un CNN moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
+Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose de
+simple, qui permet toutefois de comprendre le fonctionnement d'un CNN moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
 
 Premièrement, nous avons évalué s'il était possible d'ajouter des étiquettes à une
-image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la librairie IPTCInfo qui permet de faire cette tâche aisément.
+image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la
+librairie IPTCInfo qui permet de faire cette tâche aisément.
 
-Ensuite, nous avons cherché un dataset pour entrainer notre modèle. Les images retenues proviennent du \textit{Stanford Dogs Dataset}. ~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
-présents dans des répertoires nommés par la race permet facilement de retrouver l'étiquette pour faire l'entrainement supervisé.
+Ensuite, nous avons cherché un dataset pour entrainer notre modèle. Les images
+retenues proviennent du \textit{Stanford Dogs Dataset}. 
+~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
+présents dans des répertoires nommés par la race permet facilement de retrouver
+l'étiquette pour faire l'entrainement supervisé.
 
 Avant de faire une architecture plus difficile, nous avons commencé par un réseau CNN de base.
 
