@@ -29,9 +29,9 @@ def loadDataset(path):
                 X = X.reshape(3, 224, 224)
                 datasetX.append(X)
                 datasetY.append(folder.split("-")[1])
-                if i == 200: 
-                    #print("fin de la recuperation des images")
-                    break
-                i += 1
+#                 if i == 200: 
+#                     #print("fin de la recuperation des images")
+#                     break
+#                 i += 1
 
     return np.array(datasetX), np.array(datasetY)
