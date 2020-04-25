@@ -171,14 +171,14 @@ rend hommage à son prédécesseur LeNet qui est un des premiers modèles de
 convolution à apporter de réelles prédictions de contenu d’images. Avant le
 développement de GoogLeNet,  beaucoup d’autres modèles de convolution ont vu le
 jour comme AlexNet, mais le modèle de Google reste celui qui a le pourcentage
-d’erreur le plus bas et qui est donc le plus performant. 
+d’erreur le plus bas et qui est donc le plus performant tel que présenté
+sur la figure \ref{2} ~\cite{tsang_2018}.
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{2}
-% \end{figure} 
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure1.png} 
+    \caption{Les modèles participants à l'ILSVRC 2014}
+    \label{2} 
+\end{figure} 
 
 L'architecture de ce réseau GoogleNet est très différente des précédents réseaux
 existants. Il contient des convolutions $1\times 1$ au milieu du réseau et le
@@ -195,25 +195,22 @@ réduction de dimension pour réduire le calcul. En réduisant le goulot
 d'étranglement du calcul, la profondeur et la largeur peuvent être augmentées.
 Prenons un exemple simple pour illustrer cela. Supposons que nous devons
 effectuer une convolution $5\times 5$ sans utiliser la convolution $1\times 1$
-tel qu'illustré à la figure \ref{3}.
+tel qu'illustré à la figure \ref{3} ~\cite{tsang_2018}.
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{3}
-% \end{figure} 
-% Nombre d’opérations effectuées pour réaliser cette convolution : (14×14×48) × (5×5×480) = 112.9M
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure2.png} 
+    \caption{Convolution de 112,9 millions opérations}
+    \label{3} 
+\end{figure} 
 
-Voyons maintenant le nombre d’opérations effectuées si l’on ajoute une convolution $1\times 1$ :
+Voyons maintenant le nombre d’opérations effectuées si l’on ajoute une
+convolution $1\times 1$ comme sur la figure \ref{4} ~\cite{tsang_2018}.
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{4}
-% \end{figure} 
-% Nombre d’opérations effectuées : (14×14×16) × (1×1×480) + (14×14×48) × (5×5×16) = 5.3M
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure3.png} 
+    \caption{Convolution de 5,3 millions opérations}
+    \label{4} 
+\end{figure} 
 
 Les deux sous-modèles de convolution ci-dessus donnent le même résultat et sont
 donc équivalents. Cependant, lorsqu’on utilise la convolution $1\times 1$ en
@@ -263,14 +260,13 @@ couche que l’on va appeler Regroupement moyen global (GAP) en français qui
 consiste à calculer pour chaque entrée une moyenne de probabilité qu’il va
 envoyer directement à la sortie. Il n’y aura donc aucune matrice de poids W à
 apprendre comme pour un réseau FC. Le concept du GAP est représenté à la figure
-\ref{7}.
+\ref{7}. ~\cite{tsang_2018}
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{7}
-% \end{figure}
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure4.png} 
+    \caption{Comparaison de FC et GAP}
+    \label{7} 
+\end{figure} 
 
 On voit donc que le réseau FC utilise toutes les entrées pour déterminer une
 sortie alors que le GPA utilise une entrée par sortie par rapport à un calcul 
@@ -280,7 +276,6 @@ améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable.
 
 \subsection{Entraînement}
 TODO
-
 
 \section{Discussion}
 
