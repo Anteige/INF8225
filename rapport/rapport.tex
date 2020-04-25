@@ -75,31 +75,31 @@ Polytechnique Montréal\\
 \maketitle
 
 \begin{abstract}
-Décrire la thèse et le résultat en moins de 200 mots. Le document est de 6 pages maximum.
-L'article a pour but de présenter un modèle de classification et d'étiquetage d'images
-de chiens en fonction de leur race.
+% Décrire la thèse et le résultat en moins de 200 mots.
+L'article a pour but de présenter un modèle de classification et d'étiquetage 
+d'images de chiens en fonction de leur race.
 \end{abstract}
 
 \section{Introduction}
 
 \subsection{Motivations}
-
-Les réseaux de neurones convolutifs permettent de faire de la classification d'image
-de façon rapide et performante. Ainsi, avec des images de chiens, il est possible de
-calculer la probabilité qu'un canidé présent dans une image appartienne à une race
-plutôt qu’une autre. Pour aider la SPCA à se créer un inventaire en ligne de tous 
-ses chiens, et encourager le commerce en ligne, nous voulons concevoir un réseau
-de neurones qui permet de faire de la classification automatique à partir des images
-de chien. De cette façon, les clients souhaitant faire l'acquisition d'une race
-spécifique auront plus de facilité à la retrouver sur leur site internet.
+Les réseaux de neurones convolutifs permettent de faire de la classification
+d'image de façon rapide et performante. Ainsi, avec des images de chiens, il est
+possible de calculer la probabilité qu'un canidé présent dans une image 
+appartienne à une race plutôt qu’une autre. Pour aider la SPCA à se créer un
+inventaire en ligne de tous ses chiens, et encourager le commerce en ligne, nous
+voulons concevoir un réseau de neurones qui permet de faire de la classification
+automatique à partir des images de chien. De cette façon, les clients souhaitant
+faire l'acquisition d'une race spécifique auront plus de facilité à la retrouver
+sur leur site internet.
 
 Dans la pratique, un réseau de neurones convolutif classique présente des
-difficultés pour la classification d’objets présentant de nombreuses caractéristiques
-communes, ce qui est le cas pour les chiens de la base de données. La Fig. \ref{1}
-illustre bien ce problème : les chiens présentés ont beaucoup de caractéristiques
-communes, mais n’appartiennent pas à la même race. L’objectif ici est donc
-d’implémenter un modèle capable d’obtenir des performances acceptables pour
-la prédiction de races de chien.
+difficultés pour la classification d’objets présentant de nombreuses
+caractéristiques communes, ce qui est le cas pour les chiens de la base de 
+données. La Fig. \ref{1} illustre bien ce problème : les chiens présentés ont
+beaucoup de caractéristiques communes, mais n’appartiennent pas à la même race.
+L’objectif ici est donc d’implémenter un modèle capable d’obtenir des
+performances acceptables pour la prédiction de races de chien.
 
 \begin{figure}[htbp]
     \centering
@@ -115,35 +115,39 @@ la prédiction de races de chien.
 L'article \textit{Using Convolutional Neural Networks to Classify Dog Breeds}
 ~\cite{fcdh_FinalReport} est un incontournable. Concrètement, les auteurs
 proposent  deux architectures différentes capables de différencier les petites
-variations entre les races. Le premier modèle est basé sur l'architecture de LeNet,
-dont chaque couche de convolution est un filtre avec 2 paramètres : le nombre de
-pixels qu’elles prennent en entrée et le nombre de canaux en sortie. Le deuxième
-modèle reprend l'architecture de GoogLeNet, dont chaque couche de convolution
-est une combinaison de filtres eux-mêmes composés de réseaux de neurones.
+variations entre les races. Le premier modèle est basé sur l'architecture de 
+LeNet, dont chaque couche de convolution est un filtre avec 2 paramètres : le 
+nombre de pixels qu’elles prennent en entrée et le nombre de canaux en sortie.
+Le deuxième modèle reprend l'architecture de GoogLeNet, dont chaque couche de
+convolution est une combinaison de filtres eux-mêmes composés de réseaux de
+neurones.
 
-Un autre papier intéressant est \textit{Dog Breed Identification}. ~\cite{output} Il 
-y est présenté un projet ayant pour but de prédire les races des chiens à partir
-d’images. Ce projet utilise des techniques d’apprentissage automatique et de vision
-par ordinateur. Un réseau de neurones convolutionnel permet dans un premier
-temps d’identifier les points clés des visages des chiens. Ensuite, des descripteurs
-SIFT (Scale-Invariant Feature Transform) et des histogrammes de couleur utilisent 
-ces points clés pour extraire des features. Enfin, un classificateur de type machine 
-à vecteur de support (SVM, Support-Vector Machine) prédit la race du chien avec
-une précision de 52\%. Il est à noter que dans 90\% des cas, la race du chien à 
-trouver est présente dans les 10 prédictions les plus probables (sur 133 races au
-total dans la base de données). Ces performances sont supérieures à ce que
-peuvent faire la plupart des humains.
+Un autre papier intéressant est \textit{Dog Breed Identification}. 
+~\cite{output} Il y est présenté un projet ayant pour but de prédire les races
+des chiens à partir d’images. Ce projet utilise des techniques d’apprentissage
+automatique et de vision par ordinateur. Un réseau de neurones convolutionnel
+permet dans un premier temps d’identifier les points clés des visages des 
+chiens. Ensuite, des descripteurs SIFT (Scale-Invariant Feature Transform) et 
+des histogrammes de couleur utilisent ces points clés pour extraire des 
+features. Enfin, un classificateur de type machine à vecteur de support (SVM,
+Support-Vector Machine) prédit la race du chien avec une précision de 52\%. Il
+est à noter que dans 90\% des cas, la race du chien à trouver est présente dans
+les 10 prédictions les plus probables (sur 133 races au total dans la base de 
+données). Ces performances sont supérieures à ce que peuvent faire la plupart
+des humains.
 
-Dans ce travail, nous faisons le choix d'utiliser un modèle proposé par le premier
-article. En effet, la simplicité d’architecture et leurs bonnes performances sont
-totalement adaptées aux contraintes que nous rencontrons. Nous allons ajouter un
-algorithme qui applique une étiquette sur l'image.
+Dans ce travail, nous nous inspirons d'un modèle proposé par le premier article.
+En effet, la simplicité d’architecture et leurs bonnes performances sont
+ totalement adaptées aux contraintes que nous rencontrons. Nous allons ajouter
+un algorithme qui applique une étiquette sur l'image.
 
-\section{Approche théorétique}
-% Un résumé de l'approche théorétique formant la base du sujet du projet.
-Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose de
-simple, qui permet toutefois de comprendre le fonctionnement d'un CNN moderne en 
-profondeur. Ainsi, nous allons nous limiter à une seule architecture.
+\section{Approche théorique}
+% Un résumé de l'approche théorique formant la base du sujet du projet.
+
+\subsection{Méthodologie}
+Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose 
+de simple, qui permet toutefois de comprendre le fonctionnement d'un CNN 
+moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
 
 Premièrement, nous avons évalué s'il était possible d'ajouter des étiquettes à une
 image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la
@@ -153,9 +157,130 @@ Ensuite, nous avons cherché un dataset pour entrainer notre modèle. Les images
 retenues proviennent du \textit{Stanford Dogs Dataset}. 
 ~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
 présents dans des répertoires nommés par la race permet facilement de retrouver
-l'étiquette pour faire l'entrainement supervisé. 
+l'étiquette pour faire l'entrainement supervisé.
 
-Avant de faire une architecture plus difficile, nous avons commencé par un réseau CNN de base.
+Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
+\textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
+~\cite{output}. Ainsi, il nous a été utile de consulter l'article de Google,
+\textit{Going deeper with convolutions} ~\cite{43022}, afin de bien comprendre
+le fonctionnement du réseau.
+
+\subsection{Le modèle}
+Le modèle GoogLeNet créé par Google possède le mot LeNet dans son nom, car il
+rend hommage à son prédécesseur LeNet qui est un des premiers modèles de
+convolution à apporter de réelles prédictions de contenu d’images. Avant le
+développement de GoogLeNet,  beaucoup d’autres modèles de convolution ont vu le
+jour comme AlexNet, mais le modèle de Google reste celui qui a le pourcentage
+d’erreur le plus bas et qui est donc le plus performant. 
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{2}
+% \end{figure} 
+
+L'architecture de ce réseau GoogleNet est très différente des précédents réseaux
+existants. Il contient des convolutions $1\times 1$ au milieu du réseau et le
+regroupement moyen global est utilisé à la fin du réseau au lieu d’utiliser des
+couches entièrement connectées. Ces deux techniques sont extraites d’un autre
+article intitulé \textit{Network In Network}. ~\cite{lin2013network} Une autre
+technique appelée module de création consiste à avoir différentes tailles ou
+types de convolutions pour la même entrée. Ensuite, on empile toutes les 
+sorties. Nous verrons plus en détail chacune de ces techniques ci-dessous.
+
+\subsection{la convolution $1\times 1$}
+Dans GoogLeNet, la convolution $1\times 1$ est utilisée comme module de
+réduction de dimension pour réduire le calcul. En réduisant le goulot
+d'étranglement du calcul, la profondeur et la largeur peuvent être augmentées.
+Prenons un exemple simple pour illustrer cela. Supposons que nous devons
+effectuer une convolution $5\times 5$ sans utiliser la convolution $1\times 1$
+tel qu'illustré à la figure \ref{3}.
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{3}
+% \end{figure} 
+% Nombre d’opérations effectuées pour réaliser cette convolution : (14×14×48) × (5×5×480) = 112.9M
+
+Voyons maintenant le nombre d’opérations effectuées si l’on ajoute une convolution $1\times 1$ :
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{4}
+% \end{figure} 
+% Nombre d’opérations effectuées : (14×14×16) × (1×1×480) + (14×14×48) × (5×5×16) = 5.3M
+
+Les deux sous-modèles de convolution ci-dessus donnent le même résultat et sont
+donc équivalents. Cependant, lorsqu’on utilise la convolution $1\times 1$ en
+plus on effectue beaucoup moins d’opérations ce qui revient donc à être moins
+couteux. Ainsi, la convolution $1\times 1$ aide à réduire la taille du modèle,
+ce qui peut également aider à réduire les problèmes de généralisation.
+
+\subsection{Le module Inception}
+Auparavant, comme avec AlexNet et VGGNet, la taille du filtre de convolution
+était fixée pour chaque couche. Mais avec le module Inception, les filtres de
+convolution $1\times 1$,  $3\times 3$ et  $5\times 5$ ainsi que la couche
+maxPooling sont toutes appliquées à la sortie de la couche de neurones
+précédente et chaque résultat de chacune de ces couches est envoyé vers une
+couche de concaténation qui regroupe toutes ces sorties en un seul résultat.
+L’architecture de ce module est de la forme représentée à la figure \ref{5}
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{5}
+% \end{figure} 
+
+Finalement, si on décide de regrouper et d’utiliser la convolution $1\times 1$
+dans notre module Inception afin de réduire la dimension des couches $3\times 3$
+et  $5\times 5$ pour qu’elles soient moins couteuses. On garde donc la variété
+de résultats qu’offre l’assemblage de couches de convolution de différentes
+tailles tout en prenant soin de réduire les dimensions pour éviter une surcharge
+des opérations et par la même occasion les problèmes de généralisation comme
+dans la figure \ref{6}.
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{6}
+% \end{figure}
+
+\subsection{Le regroupement moyen global}
+Dans la plupart des CNN classiques et déjà réalisées, on utilise une couche
+Fully Connected (FC) à la fin du réseau (à la sortie de la dernière couche de
+convolution / pooling) en reliant toutes les entrées à toutes les sorties qui
+sont égales au nombre de classes que l’on veut classifier à l’aide notre modèle
+(chez nous 120 classes = 120 races de chiens différentes). Néanmoins, GoogLeNet
+ n’utilise pas de couche FC à la fin pour la classification, mais bien une
+couche que l’on va appeler Regroupement moyen global (GAP) en français qui
+consiste à calculer pour chaque entrée une moyenne de probabilité qu’il va
+envoyer directement à la sortie. Il n’y aura donc aucune matrice de poids W à
+apprendre comme pour un réseau FC. Le concept du GAP est représenté à la figure
+\ref{7}.
+
+%\begin{figure}[htbp]
+%   \centering
+%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
+%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
+%    \label{7}
+% \end{figure}
+
+On voit donc que le réseau FC utilise toutes les entrées pour déterminer une
+sortie alors que le GPA utilise une entrée par sortie par rapport à un calcul 
+des entrées moyennes. Le réseau GPA est donc moins couteux, mais en plus de cela
+une étude des auteurs a confirmé qu'un passage de la couche FC à la couche GPA
+améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable. 
+
+\subsection{Entraînement}
+TODO
+
 
 \section{Discussion}
 
@@ -203,13 +328,6 @@ Singapore   & 0.1  & 33.33      \\
 \STATE \textbf{return} solution
 \end{algorithmic}
 \end{algorithm}
-
-\subsection{Exemple de formule}
-
-\begin{align}
-    x =& \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \nonumber\\
-    + & \prod_{i=1}^n \sum_{j=1}^n j_i
-\end{align}
 
 \section{Analyse}
 
