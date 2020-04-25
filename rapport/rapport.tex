@@ -225,14 +225,14 @@ convolution $1\times 1$,  $3\times 3$ et  $5\times 5$ ainsi que la couche
 maxPooling sont toutes appliquées à la sortie de la couche de neurones
 précédente et chaque résultat de chacune de ces couches est envoyé vers une
 couche de concaténation qui regroupe toutes ces sorties en un seul résultat.
-L’architecture de ce module est de la forme représentée à la figure \ref{5}
+L’architecture de ce module est de la forme représentée à la figure \ref{5}.
+ ~\cite{43022}
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{5}
-% \end{figure} 
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure5.png} 
+    \caption{Inception Naïf}
+    \label{5} 
+\end{figure} 
 
 Finalement, si on décide de regrouper et d’utiliser la convolution $1\times 1$
 dans notre module Inception afin de réduire la dimension des couches $3\times 3$
@@ -240,14 +240,13 @@ et  $5\times 5$ pour qu’elles soient moins couteuses. On garde donc la variét
 de résultats qu’offre l’assemblage de couches de convolution de différentes
 tailles tout en prenant soin de réduire les dimensions pour éviter une surcharge
 des opérations et par la même occasion les problèmes de généralisation comme
-dans la figure \ref{6}.
+dans la figure \ref{6}. ~\cite{43022}
 
-%\begin{figure}[htbp]
-%   \centering
-%    \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
-%    \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-%    \label{6}
-% \end{figure}
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure6.png} 
+    \caption{Inception réduit}
+    \label{6} 
+\end{figure} 
 
 \subsection{Le regroupement moyen global}
 Dans la plupart des CNN classiques et déjà réalisées, on utilise une couche
