@@ -77,7 +77,7 @@ Polytechnique Montréal\\
 \begin{abstract}
 % Décrire la thèse et le résultat en moins de 200 mots.
 L'article a pour but de présenter un modèle de classification et d'étiquetage 
-d'images de chiens en fonction de leur race.
+d'images de chiens en fonction de leur race. TODO
 \end{abstract}
 
 \section{Introduction}
@@ -157,7 +157,9 @@ Ensuite, nous avons cherché un dataset pour entrainer notre modèle. Les images
 retenues proviennent du \textit{Stanford Dogs Dataset}. 
 ~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
 présents dans des répertoires nommés par la race permet facilement de retrouver
-l'étiquette pour faire l'entrainement supervisé.
+l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le dataset
+soit différent de l'article permet d'explorer davantage les impacts du dataset
+par rapport au modèle.
 
 Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
 \textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
@@ -274,11 +276,13 @@ une étude des auteurs a confirmé qu'un passage de la couche FC à la couche GP
 améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable. 
 
 \subsection{Entraînement}
+- expliquer la dimension des images après le preprocessing ( 12000, 3 , 224, 224)
+( Nbr d exemplaires, couleurs RGb, H, W)
 TODO
 
 \section{Discussion}
-
-Discussion de nos expériences. Incluant des figures, des tableaux de nos résultats.
+% Discussion de nos expériences. Incluant des figures, des tableaux de nos résultats.
+Qu on a importe le model torch.googlenet TODO
 
 Le code source est disponible à cette adresse : \url{https://github.com/Anteige/INF8225}.
 
@@ -300,28 +304,6 @@ Singapore   & 0.1  & 33.33      \\
 \caption{Booktabs table}
 \label{tab:booktabs}
 \end{table}
-
-\subsection{Exemple d'algorithme}
-
-\begin{algorithm}[htbp]
-\caption{Example algorithm}
-\label{alg:algorithm}
-\textbf{Input}: Your algorithm's input\\
-\textbf{Parameter}: Optional list of parameters\\
-\textbf{Output}: Your algorithm's output
-\begin{algorithmic}[1] %[1] enables line numbers
-\STATE Let $t=0$.
-\WHILE{condition}
-\STATE Do some action.
-\IF {conditional}
-\STATE Perform task A.
-\ELSE
-\STATE Perform task B.
-\ENDIF
-\ENDWHILE
-\STATE \textbf{return} solution
-\end{algorithmic}
-\end{algorithm}
 
 \section{Analyse}
 
