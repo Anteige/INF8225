@@ -81,17 +81,18 @@ d'images de chiens en fonction de leur race. TODO
 \end{abstract}
 
 \section{Introduction}
+% Un petit résumé des travaux antérieurs qui existent dans la littérature.
 
 \subsection{Motivations}
-Les réseaux de neurones convolutifs permettent de faire de la classification
-d'image de façon rapide et performante. Ainsi, avec des images de chiens, il est
-possible de calculer la probabilité qu'un canidé présent dans une image 
-appartienne à une race plutôt qu’une autre. Pour aider la SPCA à se créer un
-inventaire en ligne de tous ses chiens, et encourager le commerce en ligne, nous
-voulons concevoir un réseau de neurones qui permet de faire de la classification
-automatique à partir des images de chien. De cette façon, les clients souhaitant
-faire l'acquisition d'une race spécifique auront plus de facilité à la retrouver
-sur leur site internet.
+Les réseaux de neurones convolutifs (CNN) permettent de faire de la
+classification d'image de façon rapide et performante. Ainsi, avec des images de
+chiens, il est possible de calculer la probabilité qu'un canidé présent dans une
+image appartienne à une race plutôt qu’une autre. Pour aider la SPCA à se créer
+un inventaire en ligne de tous ses chiens, et encourager le commerce en ligne,
+nous voulons concevoir un réseau de neurones qui permet de faire de la
+classification automatique à partir des images de chien. De cette façon, les
+clients souhaitant faire l'acquisition d'une race spécifique auront plus de
+facilité à la retrouver sur leur site internet.
 
 Dans la pratique, un réseau de neurones convolutif classique présente des
 difficultés pour la classification d’objets présentant de nombreuses
@@ -110,7 +111,6 @@ performances acceptables pour la prédiction de races de chien.
 \end{figure} 
 
 \subsection{Travaux antérieurs}
-% Un petit résumé des travaux antérieurs qui existent dans la littérature.
 L'article \textit{Using Convolutional Neural Networks to Classify Dog Breeds}
 ~\cite{fcdh_FinalReport} est un incontournable. Concrètement, les auteurs
 proposent  deux architectures différentes capables de différencier les petites
@@ -143,30 +143,7 @@ qui applique une étiquette sur l'image.
 \section{Approche théorique}
 % Un résumé de l'approche théorique formant la base du sujet du projet.
 
-\subsection{Méthodologie}
-Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose 
-de simple, qui permet toutefois de comprendre le fonctionnement d'un CNN 
-moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
-
-Premièrement, nous avons évalué s'il était possible d'ajouter des étiquettes à une
-image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la
-librairie IPTCInfo qui permet de faire cette tâche aisément.
-
-Ensuite, nous avons cherché un jeu de données pour entrainer notre modèle. Les
-images retenues proviennent du \textit{Stanford Dogs Dataset}. 
-~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
-présents dans des répertoires nommés par la race permet facilement de retrouver
-l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le jeu de
-données soit différent de l'article permet d'explorer davantage les impacts du
-jeu de données  par rapport au modèle.
-
-Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
-\textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
-~\cite{output}. Ainsi, il nous a été utile de consulter l'article de Google,
-\textit{Going deeper with convolutions} ~\cite{43022}, afin de bien comprendre
-le fonctionnement du réseau.
-
-\subsection{Le modèle}
+\subsection{GoogLeNet}
 Le modèle GoogLeNet créé par Google possède le mot LeNet dans son nom, car il
 rend hommage à son prédécesseur LeNet qui est un des premiers modèles de
 convolution à apporter de réelles prédictions de contenu d’images. Avant le
@@ -186,11 +163,11 @@ existants. Il contient des convolutions $1\times 1$ au milieu du réseau et le
 regroupement moyen global est utilisé à la fin du réseau au lieu d’utiliser des
 couches entièrement connectées. Ces deux techniques sont extraites d’un autre
 article intitulé \textit{Network In Network}. ~\cite{lin2013network} Une autre
-technique appelée module de création consiste à avoir différentes tailles ou
+technique, appelée module de création, consiste à avoir différentes tailles ou
 types de convolutions pour la même entrée. Ensuite, on empile toutes les 
-sorties. Nous verrons plus en détail chacune de ces techniques ci-dessous.
+sorties. Nous verrons plus en détail chacune de ces techniques.
 
-\subsection{la convolution $1\times 1$}
+\subsection{Convolution $1\times 1$}
 Dans GoogLeNet, la convolution $1\times 1$ est utilisée comme module de
 réduction de dimension pour réduire le calcul. En réduisant le goulot
 d'étranglement du calcul, la profondeur et la largeur peuvent être augmentées.
@@ -215,15 +192,15 @@ convolution $1\times 1$ comme sur la figure \ref{4} ~\cite{tsang_2018}.
 
 Les deux sous-modèles de convolution ci-dessus donnent le même résultat et sont
 donc équivalents. Cependant, lorsqu’on utilise la convolution $1\times 1$ en
-plus on effectue beaucoup moins d’opérations ce qui revient donc à être moins
-couteux. Ainsi, la convolution $1\times 1$ aide à réduire la taille du modèle,
-ce qui peut également aider à réduire les problèmes de généralisation.
+plus on effectue beaucoup moins d’opérations ce qui est moins couteux. Ainsi,
+la convolution $1\times 1$ aide à réduire la taille du modèle, ce qui peut
+également aider à réduire les problèmes de généralisation.
 
-\subsection{Le module Inception}
+\subsection{Inception}
 Auparavant, comme avec AlexNet et VGGNet, la taille du filtre de convolution
 était fixée pour chaque couche. Mais avec le module Inception, les filtres de
 convolution $1\times 1$,  $3\times 3$ et  $5\times 5$ ainsi que la couche
-maxPooling sont toutes appliquées à la sortie de la couche de neurones
+\textit{maxpooling} sont toutes appliquées à la sortie de la couche de neurones
 précédente et chaque résultat de chacune de ces couches est envoyé vers une
 couche de concaténation qui regroupe toutes ces sorties en un seul résultat.
 L’architecture de ce module est de la forme représentée à la figure \ref{5}.
@@ -236,11 +213,11 @@ L’architecture de ce module est de la forme représentée à la figure \ref{5}
 \end{figure} 
 
 Finalement, si on décide de regrouper et d’utiliser la convolution $1\times 1$
-dans notre module Inception afin de réduire la dimension des couches $3\times 3$
-et  $5\times 5$ pour qu’elles soient moins couteuses. On garde donc la variété
+dans notre module Inception, on réduit la dimension des couches $3\times 3$
+et $5\times 5$ pour qu’elles soient moins couteuses. On garde donc la variété
 de résultats qu’offre l’assemblage de couches de convolution de différentes
 tailles tout en prenant soin de réduire les dimensions pour éviter une surcharge
-des opérations et par la même occasion les problèmes de généralisation comme
+des opérations et, par la même occasion, les problèmes de généralisation comme
 dans la figure \ref{6}. ~\cite{43022}
 
 \begin{figure}[htbp]
@@ -249,18 +226,18 @@ dans la figure \ref{6}. ~\cite{43022}
     \label{6} 
 \end{figure} 
 
-\subsection{Le regroupement moyen global}
+\subsection{Regroupement moyen global}
 Dans la plupart des CNN classiques et déjà réalisées, on utilise une couche
-Fully Connected (FC) à la fin du réseau (à la sortie de la dernière couche de
-convolution / pooling) en reliant toutes les entrées à toutes les sorties qui
-sont égales au nombre de classes que l’on veut classifier à l’aide notre modèle
-(chez nous 120 classes = 120 races de chiens différentes). Néanmoins, GoogLeNet
- n’utilise pas de couche FC à la fin pour la classification, mais bien une
-couche que l’on va appeler Regroupement moyen global (GAP) en français qui
-consiste à calculer pour chaque entrée une moyenne de probabilité qu’il va
-envoyer directement à la sortie. Il n’y aura donc aucune matrice de poids W à
-apprendre comme pour un réseau FC. Le concept du GAP est représenté à la figure
-\ref{7}. ~\cite{tsang_2018}
+pleinement connectée (FC) à la fin du réseau à la sortie de la dernière couche
+de convolution ou de \textit{pooling} en reliant toutes les entrées à toutes les
+sorties qui sont égales au nombre de classes que l’on veut classifier à l’aide
+notre modèle. Dans notre cas, nous avons 120 classes qui représentent les 120
+races de chiens différentes. Néanmoins, GoogLeNet n’utilise pas de couche FC à
+la fin pour la classification, mais bien une couche de regroupement moyen global
+(GAP) qui consiste à calculer, pour chaque entrée, une moyenne de probabilité
+qu’il va envoyer directement à la sortie. Il n’y aura donc aucune matrice de
+poids à apprendre comme pour un réseau FC. Le concept du GAP est représenté à la
+figure \ref{7}. ~\cite{tsang_2018}
 
 \begin{figure}[htbp]
     \includegraphics[width=8.4cm]{./figures/Figure4.png} 
@@ -270,22 +247,44 @@ apprendre comme pour un réseau FC. Le concept du GAP est représenté à la fig
 
 On voit donc que le réseau FC utilise toutes les entrées pour déterminer une
 sortie alors que le GPA utilise une entrée par sortie par rapport à un calcul 
-des entrées moyennes. Le réseau GPA est donc moins couteux, mais en plus de cela
-une étude des auteurs a confirmé qu'un passage de la couche FC à la couche GPA
-améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable.
+des entrées moyennes. Le réseau GPA est donc moins couteux. De plus, une étude
+des auteurs a confirmé qu'un passage de la couche FC à la couche GPA améliore la
+précision du GoogLeNet de 0,6\% ce qui est remarquable. ~\cite{tsang_2018}
 
-\subsection{L'architecture}
-Finalement, le modèle que nous avons implémenté en python à l’aide de couches de
-Pytorch est fortement inspiré du modèle GoogLeNet auquel nous avons décidé
-d’ajouter des couches de normalisation par sous-ensemble afin d’améliorer 
-l’entrainement. En effet, nous avons implémenté une classe Inception composée de
-quatre branches de séparation du transformer, qui ont leur sortie regroupée à la
-fin de la classe. De plus, nous avons aussi une classe GoogLeNet composée de 
-trois couches de convolution suivies chacune d'une couche de normalisation par
-sous-ensemble puis d’une couche ReLU et enfin d’une couche de pooling.
-L'architecture implémentée est représentée par la figure \ref{8}. L'architecture
-est disponible dans le fichier GoogLeNet.py sur le dépôt GitHub disponible
-à cette adresse : \url{https://github.com/Anteige/INF8225}
+\subsection{Méthodologie}
+Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose 
+de simple, qui permet toutefois de comprendre le fonctionnement d'un CNN 
+moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
+
+Premièrement, nous avons évalué s'il était possible d'ajouter des étiquettes à une
+image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la
+librairie IPTCInfo qui permet de faire cette tâche aisément.
+
+Ensuite, nous avons cherché un jeu de données pour entrainer notre modèle. Les
+images retenues proviennent du \textit{Stanford Dogs Dataset}. 
+~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
+présents dans des répertoires nommés par la race permet facilement de retrouver
+l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le jeu de
+données soit différent de l'article permet d'explorer davantage les impacts du
+jeu de données  par rapport au modèle.
+
+Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
+\textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
+~\cite{output}. Ainsi, il nous a été utile de consulter l'article de Google,
+\textit{Going deeper with convolutions} ~\cite{43022}, afin de bien comprendre
+le fonctionnement du réseau.
+
+Le modèle que nous avons implémenté en python à l’aide de couches de Pytorch
+est fortement inspiré du modèle GoogLeNet auquel nous avons décidé d’ajouter des
+couches de normalisation par sous-ensemble afin d’améliorer l’entrainement. En
+effet, nous avons implémenté une classe Inception composée de quatre branches de
+séparation du transformer, qui ont leur sortie regroupée à la fin de la classe.
+De plus, nous avons aussi une classe GoogLeNet composée de trois couches de
+convolution suivies chacune d'une couche de normalisation par sous-ensemble puis
+d’une couche ReLU et enfin d’une couche de \textit{pooling}. L'architecture
+implémentée est représentée par la figure \ref{8}. L'architecture est disponible
+dans le fichier googlenet.py sur le dépôt GitHub disponible à cette adresse :
+\url{https://github.com/Anteige/INF8225}
 
 \begin{figure}[htbp]
     \includegraphics[width=8.4cm]{./figures/Figure7bis.png} 
