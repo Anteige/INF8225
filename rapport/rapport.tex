@@ -302,19 +302,23 @@ de chien, de taille $3\times 244 \times 244$. Chaque dimension représente
 respectivement, la couleur RBG, la longueur et la largeur. Ce jeu de données est
 importé de Kaggle. Nous l’avons choisi, car il est plutôt récent et les
 résultats des entrainements sur ce jeu de données à ce jour sont loin d’être
-performants. Pour ce qui est du modèle, nous avons choisis à l’aide d’un
-ensemble de validation des taux d’apprentissages égal à 0,07 et 0,0005 ainsi
+performants. Pour ce qui est du modèle, nous avons choisi, à l’aide d’un
+ensemble de validation, des taux d’apprentissages égaux à 0,07 et 0,0005 ainsi
 qu'un momentum de 0,0005. L’algorithme d’optimisation employé est ADAM et la
 fonction de perte utilisée pour mesurer l’erreur après chaque mise à jour du
-modèle est cross entropy.
+modèle est l'entropie croisée.
+
+Nous avons effectué plusieurs essais en variant le taux d'apprentissage, le
+nombre d'itérations et l'utilisation, ou non, d'une optimisation ADAM. Pour
+chaque essai, nous avons noté le score en top1 et en top10. Pour des fins de
+comparaisons, seule la moyenne a été retenue.
 
 \subsection{Résultats}
-
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lrr}  
 \toprule
-Nombre d'epochs  & top1 (\%) & top10 (\%) \\
+Nombre d'itérations & top1 (\%) & top10 (\%) \\
 \midrule
 1000 & 0.89 & 2.60 \\
          & 0.87 & 2.66 \\
@@ -343,14 +347,14 @@ Nombre d'epochs  & top1 (\%) & top10 (\%) \\
 \bottomrule
 \end{tabular}
 \caption{Performances avec un taux d'apprentissage de 0,0005}
-\label{tab:booktabs}
+\label{tab:1}
 \end{table}
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lrr}  
 \toprule
-Nombre d'epochs  & top1 (\%) & top10 (\%) \\
+Nombre d'itérations & top1 (\%) & top10 (\%) \\
 \midrule
 1000 & 0.89 & 2.60 \\
          & 0.87 & 2.66 \\
@@ -361,14 +365,14 @@ Nombre d'epochs  & top1 (\%) & top10 (\%) \\
 \bottomrule
 \end{tabular}
 \caption{Performances avec un taux d'apprentissage et un L2 de 0,0005}
-\label{tab:booktabs}
+\label{tab:2}
 \end{table}
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lrr}  
 \toprule
-Nombre d'epochs  & top1 (\%) & top10 (\%) \\
+Nombre d'itérations & top1 (\%) & top10 (\%) \\
 \midrule
 50 & 0.96 & 8.86 \\
      & 0.73 & 8.68 \\
@@ -379,20 +383,31 @@ Nombre d'epochs  & top1 (\%) & top10 (\%) \\
 \bottomrule
 \end{tabular}
 \caption{Performances avec un taux d'apprentissage de 0,07}
-\label{tab:booktabs}
+\label{tab:3}
 \end{table}
 
 \subsection{Interprétation des résultats}
+Dans le tableau \ref{tab:1}, on voit que les résultats de l’entrainement avec
+beaucoup d’itérations sont moins bons à partir de 100 itérations. En effet, on
+constate que même si l’erreur de la fonction de cout continue à diminuer après
+100 itérations et qu’elle devient acceptable à partir de 500 itérations, les
+résultats ne vont pas dans ce sens, ce qui nous laisse penser que le modèle
+passe en surapprentissage au bout de 100 itérations d’entrainement.
+
+Dans le tableau \ref{tab:2}, on constate que l'application d'un L2 ...
+
+Dans le tableau \ref{tab:3}, ... TODO
+
+\subsection{Observations}
 Nous avons remarqué que la perte de la fonction de cout diminue très lentement
 lors de la phase d’entrainement. En effet, le modèle classique GoogLeNet réalisé
 par Google s’est entrainé sur une multitude d’objets et d'êtres vivants
-différents. Il a donc pu apprendre chaque freatures différente selon chaque
-entrée. Dans notre cas, nous avons décidé de ne pas utiliser la version
-préimplémentée du modèle de Google, en l’important depuis la libraire Pytroch,
-mais de la réimplémenté nous même et surtout de le refaire son entrainement de
-zéro. Notre modèle doit donc apprendre à reconnaitre différentes races de chiens
-et rien d’autre. Il est donc soumis à un apprentissage d’un seul type d’être
-vivant : Les chiens.
+différents. Il a donc pu apprendre chaque \textit{freatures} différente selon
+chaque entrée. Dans notre cas, nous avons décidé de ne pas utiliser la version
+préimplémentée du modèle de Google, en l'important depuis la libraire Pytroch,
+mais de la réimplémenté nous même et surtout de le refaire son entrainement à
+partir de zéro. Notre modèle doit donc apprendre à reconnaitre différentes races
+de chiens uniquement.
 
 Or, même si les chiens que nous lui avons donnés en entrée sont de races
 différentes, ils ont quand même énormément de similitudes, comme un museau, de
