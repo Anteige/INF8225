@@ -405,7 +405,7 @@ par Google s’est entrainé sur une multitude d’objets et d'êtres vivants
 différents. Il a donc pu apprendre chaque \textit{freatures} différente selon
 chaque entrée. Dans notre cas, nous avons décidé de ne pas utiliser la version
 préimplémentée du modèle de Google, en l'important depuis la libraire Pytroch,
-mais de la réimplémenté nous même et surtout de le refaire son entrainement à
+mais de la réimplémenté nous même et surtout de refaire son entrainement à
 partir de zéro. Notre modèle doit donc apprendre à reconnaitre différentes races
 de chiens uniquement.
 
@@ -430,8 +430,10 @@ laisser le modèle s’entrainer pendant un nombre d’itérations d’entrainem
 plus en plus grand. Nous sommes allés jusqu’à tester plus de 1000 itérations, ce
 qui a pris 18 heures environ.
 
+
 \section{Analyse}
 % Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
+
 Nous avons donc une meilleure précision que l’article que nous avons étudié,
 en utilisant le même modèle GoogleNet avec 3 couches d'Inception. Cela est dû,
 selon nous, à l’ajout de couches de normalisation par sous-ensemble ainsi qu’à
@@ -449,39 +451,31 @@ pouvons affirmer que notre modèle GoogleNet donne des résultats
 significativement meilleurs que l'article. Cependant, cette performance est
 insuffisante pour une classification proche de l'être humain.
 
-Pour en revenir à l’analyse de nos tableaux, on voit que les résultats de
-l’entrainement avec beaucoup d’itérations sont moins bons à partir de 100
-itérations. En effet, on constate que même si l’erreur de la fonction de cout
-continue à diminuer après 100 itérations et qu’elle devient acceptable à partir
-de 500 itérations, les résultats ne vont pas dans ce sens, ce qui nous laisse
-penser que le modèle passe en surapprentissage au bout de 100 itérations
-d’entrainement. 
-
-Afin de mieux comprendre ce phénomène, posons-nous la question suivante :
-qu’est-ce que le modèle veut apprendre ? Et bien notre modèle est principalement
-basé sur des convolutions, il cherche donc à apprendre des filtres de
-convolution afin de reconnaitre les caractéristiques d’une image afin de pouvoir
-la classifier selon ces caractéristiques. De plus, à l’aide des couches de
-pooling, il cherche à réduire l’information inutile qui n’est pas en rapport
-avec les caractéristiques qu’il souhaite apprendre. Or, sachant que les chiens
-ont tous des caractéristiques similaires, notre modèle va apprendre ces
-caractéristiques minimisées, par les couches de pooling, et ne saura donc plus
-les utiliser pour classifier les races de chiens. En somme, augmenter le nombre
-d’itérations de l’apprentissage ne nous aidera pas à mieux apprendre ces
-caractéristiques, qui diffèrent selon chaque race de chien, mais bien au
-contraire, notre GoogLeNet va vite tomber dans le surapprentissage, car il va
-apprendre sans cesse des caractéristiques qui ne lui apporteront pas
+Pour revenir à la remarquer du tableau \ref{tab:1}, posons-nous la question
+suivante : qu’est-ce que le modèle veut apprendre ? Et bien notre modèle est
+principalement basé sur des convolutions, il cherche donc à apprendre des
+filtres de convolution afin de reconnaitre les caractéristiques d’une image afin
+de pouvoir la classifier selon ces caractéristiques. De plus, à l’aide des
+couches de \textit{pooling}, il cherche à réduire l’information inutile qui
+n’est pas en rapport avec les caractéristiques qu’il souhaite apprendre. Or,
+sachant que les chiens ont tous des caractéristiques similaires, notre modèle va
+apprendre ces caractéristiques minimisées, par les couches de \textit{pooling},
+et ne saura donc plus les utiliser pour classifier les races de chiens. En
+somme, augmenter le nombre d’itérations de l’apprentissage ne nous aidera pas à
+mieux apprendre ces caractéristiques, qui diffèrent selon chaque race de chien,
+mais bien au contraire, notre GoogLeNet va vite tomber dans le surapprentissage,
+car il va apprendre sans cesse des caractéristiques qui ne lui apporteront pas
 suffisamment de détails pour classifier les races de chiens de notre jeu de
 données. 
 
 En conclusion de cette analyse, nous pensons qu’il serait justifiable de réduire
-au minimum les tailles des filtres de convolution avec les couches de pooling
-car ceux-ci font perdre de l’information précieuse. Le problème avec cette
-méthode est que l’information à traiter sera en conséquence plus grande et nous
-aurons besoin d’un réseau beaucoup plus profond que ceux utilisables à notre
-niveau d’un point de vue matériel et temporel. Un jeu de données plus grand
-pourrait également aider dans ce sens pour un apprentissage de détail plus
-profond et pour un risque de surapprentissage plus faible.
+au minimum les tailles des filtres de convolution avec les couches de
+\textit{pooling} car ceux-ci font perdre de l’information précieuse. Le problème
+avec cette méthode est que l’information à traiter sera en conséquence plus
+grande et nous aurons besoin d’un réseau beaucoup plus profond que ceux
+utilisables à notre niveau d’un point de vue matériel et temporel. Un jeu de
+données plus grand pourrait également aider dans ce sens pour un apprentissage
+de détail plus profond et pour un risque de surapprentissage plus faible.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
