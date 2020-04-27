@@ -153,13 +153,13 @@ Premièrement, nous avons évalué s'il était possible d'ajouter des étiquette
 image dans ses métadonnées à l'aide du langage Python. Nous avons trouvé la
 librairie IPTCInfo qui permet de faire cette tâche aisément.
 
-Ensuite, nous avons cherché un dataset pour entrainer notre modèle. Les images
-retenues proviennent du \textit{Stanford Dogs Dataset}. 
+Ensuite, nous avons cherché un jeu de données pour entrainer notre modèle. Les
+images retenues proviennent du \textit{Stanford Dogs Dataset}. 
 ~\cite{KhoslaYaoJayadevaprakashFeiFei_FGVC2011} Le fait que les clichés soient
 présents dans des répertoires nommés par la race permet facilement de retrouver
-l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le dataset
-soit différent de l'article permet d'explorer davantage les impacts du dataset
-par rapport au modèle.
+l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le jeu de
+données soit différent de l'article permet d'explorer davantage les impacts du
+jeu de données  par rapport au modèle.
 
 Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
 \textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
@@ -294,14 +294,20 @@ est disponible dans le fichier GoogLeNet.py sur le dépôt GitHub disponible
     \label{8} 
 \end{figure} 
 
-\subsection{Entraînement}
-- expliquer la dimension des images après le preprocessing ( 12000, 3 , 224, 224)
-( Nbr d exemplaires, couleurs RGb, H, W)
-TODO
-
 \section{Discussion}
 % Discussion de nos expériences. Incluant des figures, des tableaux de nos résultats.
-Qu on a importe le model torch.googlenet TODO
+
+\subsection{Entraînement}
+Afin de réaliser l’entrainement sur notre implémentation de GoogLeNet, nous
+avons choisi comme input 12 000 images d’entrainement, soit 1000 images par race
+de chien, de taille $3\times 244 \times 244$. Chaque dimension représente
+respectivement, la couleur RBG, la longueur et la largeur. Ce jeu de données est
+importé de Kaggle. Nous l’avons choisi, car il est plutôt récent et les
+résultats des entrainements sur ce jeu de données à ce jour sont loin d’être
+performants. Pour ce qui est du modèle, nous choisis à l’aide d’un ensemble de
+validation un taux d’apprentissage égal à TODO et un momentum de TODO.
+L’algorithme d’optimisation employé est ADAM et la fonction de perte utilisée
+pour mesurer l’erreur après chaque mise à jour du modèle est cross entropy.
 
 \subsection{Exemples de tableau}
 
