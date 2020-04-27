@@ -363,7 +363,23 @@ qui a pris 18 heures environ.
 
 \section{Analyse}
 % Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
-TODO
+Nous avons donc une meilleure précision que l’article que nous avons étudié
+TODO. Cela est dû, selon nous, à l’ajout de couches de normalisation par
+sous-ensemble ainsi qu’à l’entrainement exclusif sur des chiens, mais aussi
+grâce à notre jeu de données. La précision est néanmoins loin d’être bonne et
+utilisable comme nous le souhaitions. En effet, le but de notre projet était de
+modifier les mots-clés de chaque image selon la prédiction de notre modèle. Même
+si nous sommes arrivés à une perte sur une erreur d’entrainement suffisamment
+petite TODO, le modèle a encore du mal à généraliser sur l’ensemble de tests non
+pas pour cause de surapprentissage, mais plutôt à cause des similitudes qui
+existent entre les races de chiens. Nous supposons donc qu’il faudrait apprendre
+plus en détail les caractéristiques de chaque race en laissant le modèle
+apprendre bien plus longtemps, soit plus d’une journée au minimum, mais surtout
+avec un jeu de données beaucoup plus grand. En effet, un échantillon de 12000
+images n’est pas suffisant de manière réaliste. Pour notre expérience, nous ne
+disposons ni de ce temps ni d’un tel jeu de données, mais notre conclusion est
+bien fondée sur une réelle expérience avec une implémentation fonctionnelle du
+modèle GoogLeNet.
 
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
