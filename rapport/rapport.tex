@@ -76,7 +76,7 @@ Polytechnique Montréal\\
 
 \begin{abstract}
 % Décrire la thèse et le résultat en moins de 200 mots.
-L'article a pour but de présenter un modèle de classification et d'étiquetage 
+L'article a pour but de présenter un modèle de classification et d'étiquetage
 d'images de chiens en fonction de leur race. TODO
 \end{abstract}
 
@@ -96,18 +96,17 @@ sur leur site internet.
 Dans la pratique, un réseau de neurones convolutif classique présente des
 difficultés pour la classification d’objets présentant de nombreuses
 caractéristiques communes, ce qui est le cas pour les chiens de la base de 
-données. La Fig. \ref{1} illustre bien ce problème : les chiens présentés ont
+données. La figure \ref{1} illustre bien ce problème : les chiens présentés ont
 beaucoup de caractéristiques communes, mais n’appartiennent pas à la même race.
 L’objectif ici est donc d’implémenter un modèle capable d’obtenir des
 performances acceptables pour la prédiction de races de chien.
 
 \begin{figure}[htbp]
-    \centering
     \includegraphics[width=2.8cm]{../dataset/test/n02110063-malamute/n02110063_11838.jpg}\hfill 
     \includegraphics[width=2.8cm]{../dataset/test/n02109961-Eskimo_dog/n02109961_623.jpg}\hfill 
     \includegraphics[width=2.8cm]{../dataset/test/n02110185-Siberian_husky/n02110185_7564.jpg} 
     \caption{De gauche à droite, un Malmute, un Eskimo et un Husky}
-    \label{1} 
+    \label{1}
 \end{figure} 
 
 \subsection{Travaux antérieurs}
@@ -118,7 +117,7 @@ proposent  deux architectures différentes capables de différencier les petites
 variations entre les races. Le premier modèle est basé sur l'architecture de 
 LeNet, dont chaque couche de convolution est un filtre avec 2 paramètres : le 
 nombre de pixels qu’elles prennent en entrée et le nombre de canaux en sortie.
-Le deuxième modèle reprend l'architecture de GoogLeNet, dont chaque couche de
+Le second modèle reprend l'architecture de GoogLeNet, dont chaque couche de
 convolution est une combinaison de filtres eux-mêmes composés de réseaux de
 neurones.
 
@@ -126,20 +125,20 @@ Un autre papier intéressant est \textit{Dog Breed Identification}.
 ~\cite{output} Il y est présenté un projet ayant pour but de prédire les races
 des chiens à partir d’images. Ce projet utilise des techniques d’apprentissage
 automatique et de vision par ordinateur. Un réseau de neurones convolutionnel
-permet dans un premier temps d’identifier les points clés des visages des 
-chiens. Ensuite, des descripteurs SIFT (Scale-Invariant Feature Transform) et 
-des histogrammes de couleur utilisent ces points clés pour extraire des 
-features. Enfin, un classificateur de type machine à vecteur de support (SVM,
-Support-Vector Machine) prédit la race du chien avec une précision de 52\%. Il
+permet, dans un premier temps, d’identifier les points clés des visages des 
+chiens. Ensuite, des descripteurs SIFT (\textit{Scale-Invariant Feature
+Transform}) et des histogrammes de couleur utilisent ces points clés pour
+extraire des \textit{features}. Enfin, un classificateur de type machine à
+vecteur de support (SVM) prédit la race du chien avec une précision de 52\%. Il
 est à noter que dans 90\% des cas, la race du chien à trouver est présente dans
-les 10 prédictions les plus probables (sur 133 races au total dans la base de 
-données). Ces performances sont supérieures à ce que peuvent faire la plupart
+les 10 prédictions les plus probables depuis 133 races au total dans la base de 
+données. Ces performances sont supérieures à ce que peuvent faire la plupart
 des humains.
 
 Dans ce travail, nous nous inspirons d'un modèle proposé par le premier article.
-En effet, la simplicité d’architecture et leurs bonnes performances sont
- totalement adaptées aux contraintes que nous rencontrons. Nous allons ajouter
-un algorithme qui applique une étiquette sur l'image.
+En effet, la simplicité d’architecture et leurs performances sont totalement
+adaptées aux contraintes que nous rencontrons. Nous allons ajouter un algorithme
+qui applique une étiquette sur l'image.
 
 \section{Approche théorique}
 % Un résumé de l'approche théorique formant la base du sujet du projet.
