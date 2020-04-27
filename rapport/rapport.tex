@@ -365,6 +365,24 @@ Nombre d'epochs  & top1 (\%) & top10 (\%) \\
 \label{tab:booktabs}
 \end{table}
 
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrr}  
+\toprule
+Nombre d'epochs  & top1 (\%) & top10 (\%) \\
+\midrule
+50 & 0.96 & 8.86 \\
+     & 0.73 & 8.68 \\
+     & 0.70 & 8.40 \\
+     & 0.63 & 8.54 \\
+     & 0.84 & 8.96 \\
+     & $\mu = 0.77$ &  $\mu = 8.69$ \\
+\bottomrule
+\end{tabular}
+\caption{Performances avec un taux d'apprentissage de 0,07}
+\label{tab:booktabs}
+\end{table}
+
 \subsection{Interprétation des résultats}
 Nous avons remarqué que la perte de la fonction de cout diminue très lentement
 lors de la phase d’entrainement. En effet, le modèle classique GoogLeNet réalisé
