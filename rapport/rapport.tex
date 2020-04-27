@@ -273,7 +273,26 @@ On voit donc que le réseau FC utilise toutes les entrées pour déterminer une
 sortie alors que le GPA utilise une entrée par sortie par rapport à un calcul 
 des entrées moyennes. Le réseau GPA est donc moins couteux, mais en plus de cela
 une étude des auteurs a confirmé qu'un passage de la couche FC à la couche GPA
-améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable. 
+améliore la précision du GoogLeNet de 0,6\% ce qui est remarquable.
+
+\subsection{L'architecture}
+Finalement, le modèle que nous avons implémenté en python à l’aide de couches de
+Pytorch est fortement inspiré du modèle GoogLeNet auquel nous avons décidé
+d’ajouter des couches de normalisation par sous-ensemble afin d’améliorer 
+l’entrainement. En effet, nous avons implémenté une classe Inception composée de
+quatre branches de séparation du transformer, qui ont leur sortie regroupée à la
+fin de la classe. De plus, nous avons aussi une classe GoogLeNet composée de 
+trois couches de convolution suivies chacune d'une couche de normalisation par
+sous-ensemble puis d’une couche ReLU et enfin d’une couche de pooling.
+L'architecture implémentée est représentée par la figure \ref{8}. L'architecture
+est disponible dans le fichier GoogLeNet.py sur le dépôt GitHub disponible
+à cette adresse : \url{https://github.com/Anteige/INF8225}
+
+\begin{figure}[htbp]
+    \includegraphics[width=8.4cm]{./figures/Figure7bis.png} 
+    \caption{Architecture implémentée}
+    \label{8} 
+\end{figure} 
 
 \subsection{Entraînement}
 - expliquer la dimension des images après le preprocessing ( 12000, 3 , 224, 224)
@@ -283,8 +302,6 @@ TODO
 \section{Discussion}
 % Discussion de nos expériences. Incluant des figures, des tableaux de nos résultats.
 Qu on a importe le model torch.googlenet TODO
-
-Le code source est disponible à cette adresse : \url{https://github.com/Anteige/INF8225}.
 
 \subsection{Exemples de tableau}
 
