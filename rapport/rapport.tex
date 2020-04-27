@@ -304,10 +304,11 @@ de chien, de taille $3\times 244 \times 244$. Chaque dimension représente
 respectivement, la couleur RBG, la longueur et la largeur. Ce jeu de données est
 importé de Kaggle. Nous l’avons choisi, car il est plutôt récent et les
 résultats des entrainements sur ce jeu de données à ce jour sont loin d’être
-performants. Pour ce qui est du modèle, nous choisis à l’aide d’un ensemble de
-validation un taux d’apprentissage égal à TODO et un momentum de TODO.
-L’algorithme d’optimisation employé est ADAM et la fonction de perte utilisée
-pour mesurer l’erreur après chaque mise à jour du modèle est cross entropy.
+performants. Pour ce qui est du modèle, nous avons choisis à l’aide d’un
+ensemble de validation des taux d’apprentissages égal à 0,07 et 0,0005 ainsi
+qu'un momentum de 0,0005. L’algorithme d’optimisation employé est ADAM et la
+fonction de perte utilisée pour mesurer l’erreur après chaque mise à jour du
+modèle est cross entropy.
 
 \subsection{Résultats}
 
@@ -418,24 +419,56 @@ qui a pris 18 heures environ.
 
 \section{Analyse}
 % Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
-Nous avons donc une meilleure précision que l’article que nous avons étudié
-TODO. Cela est dû, selon nous, à l’ajout de couches de normalisation par
-sous-ensemble ainsi qu’à l’entrainement exclusif sur des chiens, mais aussi
-grâce à notre jeu de données. La précision est néanmoins loin d’être bonne et
-utilisable comme nous le souhaitions. En effet, le but de notre projet était de
-modifier les mots-clés de chaque image selon la prédiction de notre modèle. Même
-si nous sommes arrivés à une perte sur une erreur d’entrainement suffisamment
-petite TODO, le modèle a encore du mal à généraliser sur l’ensemble de tests non
-pas pour cause de surapprentissage, mais plutôt à cause des similitudes qui
-existent entre les races de chiens. Nous supposons donc qu’il faudrait apprendre
-plus en détail les caractéristiques de chaque race en laissant le modèle
-apprendre bien plus longtemps, soit plus d’une journée au minimum, mais surtout
-avec un jeu de données beaucoup plus grand. En effet, un échantillon de 12000
-images n’est pas suffisant de manière réaliste. Pour notre expérience, nous ne
-disposons ni de ce temps ni d’un tel jeu de données, mais notre conclusion est
-bien fondée sur une réelle expérience avec une implémentation fonctionnelle du
-modèle GoogLeNet.
+Nous avons donc une meilleure précision que l’article que nous avons étudié,
+en utilisant le même modèle GoogleNet avec 3 couches d'Inception. Cela est dû,
+selon nous, à l’ajout de couches de normalisation par sous-ensemble ainsi qu’à
+l’entrainement exclusif sur des chiens, mais aussi grâce à notre jeu de données.
+La précision est néanmoins loin d’être bonne et utilisable comme nous le
+souhaitions. En effet, le but de notre projet était de modifier les mots-clés de
+chaque image selon la prédiction de notre modèle. Même si nous sommes arrivés à
+une perte sur une erreur d’entrainement suffisamment petite, le modèle a encore
+du mal à généraliser sur l’ensemble de tests à cause des similitudes qui
+existent entre les races de chiens. Dans l'article que nous avons décidé
+d'implémenté, on trouves des résultats de modèles GoogleNet composée de 3, 4, 6
+et 7 couches inceptions respectivements. L'implémentation que nous avons décidé
+d'implémenter est le googleNet à 3 couches inceptions. Par rapport à cela nous
+pouvons affirmer que notre modèle GoogleNet donne des résultats
+significativement meilleurs que l'article. Cependant, cette performance est
+insuffisante pour une classification proche de l'être humain.
 
+Pour en revenir à l’analyse de nos tableaux, on voit que les résultats de
+l’entrainement avec beaucoup d’itérations sont moins bons à partir de 100
+itérations. En effet, on constate que même si l’erreur de la fonction de cout
+continue à diminuer après 100 itérations et qu’elle devient acceptable à partir
+de 500 itérations, les résultats ne vont pas dans ce sens, ce qui nous laisse
+penser que le modèle passe en surapprentissage au bout de 100 itérations
+d’entrainement. 
+
+Afin de mieux comprendre ce phénomène, posons-nous la question suivante :
+qu’est-ce que le modèle veut apprendre ? Et bien notre modèle est principalement
+basé sur des convolutions, il cherche donc à apprendre des filtres de
+convolution afin de reconnaitre les caractéristiques d’une image afin de pouvoir
+la classifier selon ces caractéristiques. De plus, à l’aide des couches de
+pooling, il cherche à réduire l’information inutile qui n’est pas en rapport
+avec les caractéristiques qu’il souhaite apprendre. Or, sachant que les chiens
+ont tous des caractéristiques similaires, notre modèle va apprendre ces
+caractéristiques minimisées, par les couches de pooling, et ne saura donc plus
+les utiliser pour classifier les races de chiens. En somme, augmenter le nombre
+d’itérations de l’apprentissage ne nous aidera pas à mieux apprendre ces
+caractéristiques, qui diffèrent selon chaque race de chien, mais bien au
+contraire, notre GoogLeNet va vite tomber dans le surapprentissage, car il va
+apprendre sans cesse des caractéristiques qui ne lui apporteront pas
+suffisamment de détails pour classifier les races de chiens de notre jeu de
+données. 
+
+En conclusion de cette analyse, nous pensons qu’il serait justifiable de réduire
+au minimum les tailles des filtres de convolution avec les couches de pooling
+car ceux-ci font perdre de l’information précieuse. Le problème avec cette
+méthode est que l’information à traiter sera en conséquence plus grande et nous
+aurons besoin d’un réseau beaucoup plus profond que ceux utilisables à notre
+niveau d’un point de vue matériel et temporel. Un jeu de données plus grand
+pourrait également aider dans ce sens pour un apprentissage de détail plus
+profond et pour un risque de surapprentissage plus faible.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
