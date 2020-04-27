@@ -328,9 +328,42 @@ Singapore   & 0.1  & 33.33      \\
 \label{tab:booktabs}
 \end{table}
 
-\section{Analyse}
+\subsection{Interprétation des résultats}
+Nous avons remarqué que la perte de la fonction de cout diminue très lentement
+lors de la phase d’entrainement. En effet, le modèle classique GoogLeNet réalisé
+par Google s’est entrainé sur une multitude d’objets et d'êtres vivants
+différents. Il a donc pu apprendre chaque freatures différente selon chaque
+entrée. Dans notre cas, nous avons décidé de ne pas utiliser la version
+préimplémentée du modèle de Google, en l’important depuis la libraire Pytroch,
+mais de la réimplémenté nous même et surtout de le refaire son entrainement de
+zéro. Notre modèle doit donc apprendre à reconnaitre différentes races de chiens
+et rien d’autre. Il est donc soumis à un apprentissage d’un seul type d’être
+vivant : Les Chiens.
 
-Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
+Or, même si les chiens que nous lui avons donnés en entrée sont de races
+différentes, ils ont quand même énormément de similitudes, comme un museau, de
+longues oreilles, une posture à quatre pattes, etc. Le modèle de convolution
+extrait donc souvent des caractéristiques similaires à chaque fois même si les
+chiens sont de race différente ce qui fait toute la complexité et la difficulté
+de notre apprentissage c’est pourquoi nous avons décidé d’ajouter la dimension
+de couleur RBG dans nos images d’entrée, car nous nous sommes dit que
+l’apprentissage des couleurs pourrait aider à reconnaitre différentes races de
+chiens qui sont souvent de couleurs différentes. C’est d’ailleurs pour cela que
+l’article que nous avons étudié pour faire ce projet a obtenu en résultat une
+précision de 10\% sur la reconnaissance de race de chiens en utilisant le modèle
+de Google avec un jeu de données certes différent qui est ImageNet. Il nous a
+donc semblé intéressant de tester notre propre implémentation du modèle de
+Google sur ce jeu de données afin de voir s'il arrive à obtenir de bons résultats
+en entrainant notre modèle uniquement sur des chiens.
+
+Pour pallier le fait que la perte diminue très lentement, nous avons décidé de
+laisser le modèle s’entrainer pendant un nombre d’itérations d’entrainement de
+plus en plus grand. Nous sommes allés jusqu’à tester plus de 1000 itérations, ce
+qui a pris 18 heures environ.
+
+\section{Analyse}
+% Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
+TODO
 
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
