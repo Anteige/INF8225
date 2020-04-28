@@ -78,7 +78,7 @@ Polytechnique Montréal\\
 % Décrire la thèse et le résultat en moins de 200 mots.
 L'article a pour but de présenter un modèle de classification et d'étiquetage
 d'images de chiens en fonction de leur race. Nous avons proposé une
-architecture basée sur GoogLeNet afin de bénificer de ses avantages et d'en
+architecture basée sur GoogLeNet afin de bénéficier de ses avantages et d'en
 apprendre plus sur le sujet. Nous sommes parvenus à construire un modèle plus 
 performant qu'un article utilisant un modèle similaire. Cependant, les
 performances d'un réseau spécialisé en détection de races de chiens ne sont
@@ -138,9 +138,9 @@ Transform}) et des histogrammes de couleur utilisent ces points clés pour
 extraire des \textit{features}. Enfin, un classificateur de type machine à
 vecteur de support (SVM) prédit la race du chien avec une précision de 52\%. Il
 est à noter que dans 90\% des cas, la race du chien à trouver est présente dans
-les 10 prédictions les plus probables parmis 133 races au total dans la base de 
+les 10 prédictions les plus probables parmi 133 races au total dans la base de 
 données. Ces performances sont supérieures à ce que peuvent faire la plupart
-des humains.
+des humains..
 
 Dans ce travail, nous nous inspirons d'un modèle proposé par le premier article.
 En effet, la simplicité d’architecture et ses performances sont totalement
@@ -415,7 +415,12 @@ généralisation pour l'ensemble de test). Il est donc clair que si la reconnais
 et la classification n'ont pas un bon score de base, la régularisation avec l'ajout
 du terme L2 n'améliorera pas le score de précision.
 
-Dans le tableau \ref{tab:3}, ... TODO
+Sur le tableau \ref{tab:3}, nous avons testé le résultat d'un taux
+d'apprentissage de 0,07 sur un nombre d'itérations d'entrainement de 50, car
+d'après l'ensemble de validation et les résultats précédents, les résultats sont
+moins bons lorsque l'on dépasse un certain nombre d'itérations à cause du
+surapprentissage. On obtient donc les meilleurs résultats jusque là avec ce taux
+d'apprentissage.
 
 \subsection{Observations}
 Nous avons remarqué que la perte de la fonction de coût diminue très lentement
