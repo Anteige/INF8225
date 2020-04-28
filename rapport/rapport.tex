@@ -402,7 +402,17 @@ constate que même si l’erreur de la fonction de cout continue à diminuer apr
 résultats ne vont pas dans ce sens, ce qui nous laisse penser que le modèle
 passe en surapprentissage au bout de 100 itérations d’entrainement.
 
-Dans le tableau \ref{tab:2}, on constate que l'application d'un L2 TODO
+Dans le tableau \ref{tab:2}, afin de mieux combattre le surapprentissage dû au
+grand nombre d'itérations d'entrainement, nous avons pensé à ajouter un terme L2
+de régularisation à la fonction de perte. C'est une technique très utilisée
+en apprentissage profond. Nous remarquons cependant que la différence pour le score
+de précision n'est pas significative. En effet, il est normal que le terme de
+régularisation ne change pas ce score de précision car cette technique n'est pa
+s utilisée pour pour améliorer la reconnaissance et la classification mais plutôt
+pour diminuer un apprentissage trop pointilleux (qui va mener une difficulté de
+généralisation pour l'ensemble de test). Il est donc clair que si la reconnaissance
+et la classification n'ont pas un bon score de base, la régularisation avec l'ajout
+du terme L2 n'améliorera pas le score de précision.
 
 Dans le tableau \ref{tab:3}, ... TODO
 
