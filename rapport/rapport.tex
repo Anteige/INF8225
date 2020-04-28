@@ -77,13 +77,12 @@ Polytechnique Montréal\\
 \begin{abstract}
 % Décrire la thèse et le résultat en moins de 200 mots.
 L'article a pour but de présenter un modèle de classification et d'étiquetage
-d'images de chiens en fonction de leur race. Nous avons proposer une
-architecture basé sur GoogLeNet afin de bénificer de ses avantages et d'en
+d'images de chiens en fonction de leur race. Nous avons proposé une
+architecture basée sur GoogLeNet afin de bénificer de ses avantages et d'en
 apprendre plus sur le sujet. Nous sommes parvenus à construire un modèle plus 
-performant qu'un article qui utilise un modèle similaire. Cependant, les
-performances d'un réseau spécialisé en détection de race de chiens ne sont
-toujours pas acceptable pour identifier les images. Nous recommandons d'utiliser
-un modèle plus généraliste pour profiter de ses performances.
+performant qu'un article utilisant un modèle similaire. Cependant, les
+performances d'un réseau spécialisé en détection de races de chiens ne sont
+toujours pas acceptables pour identifier les images. Nous recommandons d'utiliser un modèle plus généraliste pour profiter de ses performances.
 
 \end{abstract}
 
@@ -138,12 +137,12 @@ Transform}) et des histogrammes de couleur utilisent ces points clés pour
 extraire des \textit{features}. Enfin, un classificateur de type machine à
 vecteur de support (SVM) prédit la race du chien avec une précision de 52\%. Il
 est à noter que dans 90\% des cas, la race du chien à trouver est présente dans
-les 10 prédictions les plus probables depuis 133 races au total dans la base de 
+les 10 prédictions les plus probables parmis 133 races au total dans la base de 
 données. Ces performances sont supérieures à ce que peuvent faire la plupart
 des humains.
 
 Dans ce travail, nous nous inspirons d'un modèle proposé par le premier article.
-En effet, la simplicité d’architecture et leurs performances sont totalement
+En effet, la simplicité d’architecture et ses performances sont totalement
 adaptées aux contraintes que nous rencontrons. Nous allons ajouter un algorithme
 qui applique une étiquette sur l'image.
 
@@ -199,7 +198,7 @@ convolution $1\times 1$ comme sur la figure \ref{4} ~\cite{tsang_2018}.
 
 Les deux sous-modèles de convolution ci-dessus donnent le même résultat et sont
 donc équivalents. Cependant, lorsqu’on utilise la convolution $1\times 1$ en
-plus on effectue beaucoup moins d’opérations ce qui est moins couteux. Ainsi,
+plus on effectue beaucoup moins d’opérations, ce qui est moins couteux. Ainsi,
 la convolution $1\times 1$ aide à réduire la taille du modèle, ce qui peut
 également aider à réduire les problèmes de généralisation.
 
@@ -223,9 +222,9 @@ Finalement, si on décide de regrouper et d’utiliser la convolution $1\times 1
 dans notre module Inception, on réduit la dimension des couches $3\times 3$
 et $5\times 5$ pour qu’elles soient moins couteuses. On garde donc la variété
 de résultats qu’offre l’assemblage de couches de convolution de différentes
-tailles tout en prenant soin de réduire les dimensions pour éviter une surcharge
-des opérations et, par la même occasion, les problèmes de généralisation comme
-dans la figure \ref{6}. ~\cite{43022}
+tailles enréduisant les dimensions des objets manipulés. Cela permet d'éviter
+une surcharge des opérations et les problèmes de généralisation illustrés par la
+figure \ref{6}. ~\cite{43022}
 
 \begin{figure}[htbp]
     \includegraphics[width=8.4cm]{./figures/Figure6.png} 
@@ -234,17 +233,19 @@ dans la figure \ref{6}. ~\cite{43022}
 \end{figure} 
 
 \subsection{Regroupement moyen global}
-Dans la plupart des CNN classiques et déjà réalisées, on utilise une couche
-pleinement connectée (FC) à la fin du réseau à la sortie de la dernière couche
-de convolution ou de \textit{pooling} en reliant toutes les entrées à toutes les
-sorties qui sont égales au nombre de classes que l’on veut classifier à l’aide
-notre modèle. Dans notre cas, nous avons 120 classes qui représentent les 120
-races de chiens différentes. Néanmoins, GoogLeNet n’utilise pas de couche FC à
-la fin pour la classification, mais bien une couche de regroupement moyen global
-(GAP) qui consiste à calculer, pour chaque entrée, une moyenne de probabilité
-qu’il va envoyer directement à la sortie. Il n’y aura donc aucune matrice de
-poids à apprendre comme pour un réseau FC. Le concept du GAP est représenté à la
-figure \ref{7}. ~\cite{tsang_2018}
+Dans la plupart des CNN classiques déjà réalisés, on utilise une couche
+pleinement connectée (FC) à la fin du réseau. Elle peut être placée à la sortie
+de la dernière couche de convolution ou de \textit{pooling} et relie toutes les
+entrées à toutes les sorties. Il y a autant de sorties que de classes possibles pour
+la catégorisation d'un objet. Dans notre cas, nous avons 120 classes qui
+représentent les 120 races de chiens différentes. Néanmoins, GoogLeNet n’utilise pas
+de couche FC à la fin pour la classification, mais une couche de regroupement moyen
+global (GAP) qui calcule pour chaque entrée une moyenne de probabilité qu’il va
+envoyer directement à la sortie. On passe d'un tenseur de dimension $h \times w \times
+d$ à un tenseur de dimension $1 \times 1 \times d$ en faisant une moyenne des valeurs
+des dimensions $h$ et $w$. Contrairement à FC, il n’y aura donc aucune matrice de
+poids à apprendre. Le concept du GAP est représenté à la figure \ref{7}.
+~\cite{tsang_2018}
 
 \begin{figure}[htbp]
     \includegraphics[width=8.4cm]{./figures/Figure4.png} 
@@ -252,14 +253,14 @@ figure \ref{7}. ~\cite{tsang_2018}
     \label{7} 
 \end{figure} 
 
-On voit donc que le réseau FC utilise toutes les entrées pour déterminer une
-sortie alors que le GPA utilise une entrée par sortie par rapport à un calcul 
-des entrées moyennes. Le réseau GPA est donc moins couteux. De plus, une étude
-des auteurs a confirmé qu'un passage de la couche FC à la couche GPA améliore la
-précision du GoogLeNet de 0,6\% ce qui est remarquable. ~\cite{tsang_2018}
+On voit que le réseau FC utilise toutes les entrées pour déterminer chaque
+sortie, ce qui n'est pas le cas pour GAP. Le réseau GAP est donc moins couteux.
+De plus, une étude des auteurs a confirmé qu'un passage de la couche FC à la couche
+GAP améliore la précision du GoogLeNet de 0,6\% ce qui n'est pas négligeable.
+~\cite{tsang_2018}
 
 \subsection{Méthodologie}
-Dans le contexte de la pandémie, nous devons limiter le projet à quelque chose 
+Dans ce contexte de pandémie, nous devons limiter le projet à quelque chose 
 de simple, qui permet toutefois de comprendre le fonctionnement d'un CNN 
 moderne en profondeur. Ainsi, nous allons nous limiter à une seule architecture.
 
@@ -275,7 +276,7 @@ l'étiquette pour faire l'entrainement supervisé. Aussi, le fait que le jeu de
 données soit différent de l'article permet d'explorer davantage les impacts du
 jeu de données  par rapport au modèle.
 
-Pour concevoir le modèle, nous utilisons un GoogLeNet comme dans l'article 
+Pour concevoir le modèle, nous utilisons un réseau GoogLeNet comme dans l'article 
 \textit{Using Convolutional Neural Networks to Classify Dog Breeds} 
 ~\cite{output}. Ainsi, il nous a été utile de consulter l'article de Google,
 \textit{Going deeper with convolutions} ~\cite{43022}, afin de bien comprendre
@@ -286,7 +287,7 @@ est fortement inspiré du modèle GoogLeNet auquel nous avons décidé d’ajout
 couches de normalisation par sous-ensemble afin d’améliorer l’entrainement. En
 effet, nous avons implémenté une classe Inception composée de quatre branches de
 séparation du transformer, qui ont leur sortie regroupée à la fin de la classe.
-De plus, nous avons aussi une classe GoogLeNet composée de trois couches de
+Ensuite, nous avons une classe GoogLeNet composée de trois couches de
 convolution suivies chacune d'une couche de normalisation par sous-ensemble puis
 d’une couche ReLU et enfin d’une couche de \textit{pooling}. L'architecture
 implémentée est représentée par la figure \ref{8}. L'architecture est disponible
@@ -304,14 +305,14 @@ dans le fichier googlenet.py sur le dépôt GitHub disponible à cette adresse :
 
 \subsection{Entraînement}
 Afin de réaliser l’entrainement sur notre implémentation de GoogLeNet, nous
-avons choisi comme input 12000 images d’entrainement, soit 1000 images par race
+avons choisi comme input 12000 images d’entrainement, soit 100 images par race
 de chien, de taille $3\times 244 \times 244$. Chaque dimension représente
 respectivement, la couleur RBG, la longueur et la largeur. Ce jeu de données est
 importé de Kaggle. Nous l’avons choisi, car il est plutôt récent et les
 résultats des entrainements sur ce jeu de données à ce jour sont loin d’être
 performants. Pour ce qui est du modèle, nous avons choisi, à l’aide d’un
-ensemble de validation, des taux d’apprentissages égaux à 0,07 et 0,0005 ainsi
-qu'un momentum de 0,0005. L’algorithme d’optimisation employé est ADAM et la
+ensemble de validation, des taux d’apprentissages égaux à 0,07 et 0,0005 et
+un momentum de 0,0005. L’algorithme d’optimisation employé est ADAM et la
 fonction de perte utilisée pour mesurer l’erreur après chaque mise à jour du
 modèle est l'entropie croisée.
 
@@ -406,54 +407,57 @@ Dans le tableau \ref{tab:2}, on constate que l'application d'un L2 TODO
 Dans le tableau \ref{tab:3}, ... TODO
 
 \subsection{Observations}
-Nous avons remarqué que la perte de la fonction de cout diminue très lentement
+Nous avons remarqué que la perte de la fonction de coût diminue très lentement
 lors de la phase d’entrainement. En effet, le modèle classique GoogLeNet réalisé
 par Google s’est entrainé sur une multitude d’objets et d'êtres vivants
 différents. Il a donc pu apprendre chaque \textit{freatures} différente selon
 chaque entrée. Dans notre cas, nous avons décidé de ne pas utiliser la version
-préimplémentée du modèle de Google, en l'important depuis la libraire Pytroch,
-mais de la réimplémenté nous même et surtout de refaire son entrainement à
+préimplémentée du modèle de Google, en l'important depuis la libraire Pytroch.
+Nous l'avons implémentée nous-mêmes et avons refait son entrainement à
 partir de zéro. Notre modèle doit donc apprendre à reconnaitre différentes races
 de chiens uniquement.
 
 Or, même si les chiens que nous lui avons donnés en entrée sont de races
 différentes, ils ont quand même énormément de similitudes, comme un museau, de
 longues oreilles, une posture à quatre pattes, etc. Le modèle de convolution
-extrait donc souvent des caractéristiques similaires à chaque fois même si les
-chiens sont de race différente ce qui fait toute la complexité et la difficulté
-de notre apprentissage c’est pourquoi nous avons décidé d’ajouter la dimension
-de couleur RBG dans nos images d’entrée, car nous nous sommes dit que
-l’apprentissage des couleurs pourrait aider à reconnaitre différentes races de
-chiens qui sont souvent de couleurs différentes. C’est d’ailleurs pour cela que
-l’article que nous avons étudié pour faire ce projet a obtenu en résultat une
-précision de 10\% sur la reconnaissance de race de chiens en utilisant le modèle
-de Google avec un jeu de données certes différent qui est ImageNet. Il nous a
-donc semblé intéressant de tester notre propre implémentation du modèle de
-Google sur ce jeu de données afin de voir s'il arrive à obtenir de bons résultats
-en entrainant notre modèle uniquement sur des chiens.
+extrait donc souvent des caractéristiques similaires à chaque fois, même si les
+chiens sont de race différente, ce qui fait toute la complexité de notre
+apprentissage. Nous avons donc décidé d’ajouter la dimension de couleur RBG dans
+nos images d’entrée, en faisant l'hypothèse que l’apprentissage des couleurs
+pourrait aider à reconnaitre différentes races de chiens, qui sont souvent de
+couleurs différentes. 
 
-Pour pallier le fait que la perte diminue très lentement, nous avons décidé de
+L’article que nous avons étudié pour faire ce projet a obtenu une précision de 10\%
+sur la reconnaissance de races de chiens en utilisant le modèle de Google avec un
+jeu de données issu d'ImageNet. Il nous a donc semblé intéressant de tester notre
+propre implémentation du modèle de Google sur un jeu de données différent, afin de
+voir s'il arrive à obtenir de bons résultats en entrainant notre modèle uniquement
+sur des chiens.
+
+Pour pallier au fait que la perte diminue très lentement, nous avons décidé de
 laisser le modèle s’entrainer pendant un nombre d’itérations d’entrainement de
 plus en plus grand. Nous sommes allés jusqu’à tester plus de 1000 itérations, ce
 qui a pris 18 heures environ.
 
 
 \section{Analyse}
-% Une analyze critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
+% Une analyse critique de l'approche que vous avez utilisée pour apprendre le sujet que vous avez sélectionné.
 
 Nous avons donc une meilleure précision que l’article que nous avons étudié,
-en utilisant le même modèle GoogleNet avec 3 couches d'Inception. Cela est dû,
-selon nous, à l’ajout de couches de normalisation par sous-ensemble ainsi qu’à
-l’entrainement exclusif sur des chiens, mais aussi grâce à notre jeu de données.
+en utilisant le même modèle GoogleNet avec 3 couches d'Inception. Selon nous, cela
+est dû à l’ajout de couches de normalisation par sous-ensemble ainsi qu’à
+l’entrainement exclusif sur des chiens. Notre jeu de données peut également avoir
+contribué à l'amélioration des performances du modèle.
+
 La précision est néanmoins loin d’être bonne et utilisable comme nous le
 souhaitions. En effet, le but de notre projet était de modifier les mots-clés de
 chaque image selon la prédiction de notre modèle. Même si nous sommes arrivés à
 une perte sur une erreur d’entrainement suffisamment petite, le modèle a encore
 du mal à généraliser sur l’ensemble de tests à cause des similitudes qui
 existent entre les races de chiens. Dans l'article que nous avons décidé
-d'implémenté, on trouves des résultats de modèles GoogleNet composée de 3, 4, 6
-et 7 couches inceptions respectivements. L'implémentation que nous avons décidé
-d'implémenter est le googleNet à 3 couches inceptions. Par rapport à cela nous
+d'implémenter, nous trouvons des résultats de modèles GoogleNet composés respectivement
+de 3, 4, 6 et 7 couches inceptions. Le modèle que nous avons décidé d'implémenter
+est celui du réseau GoogLeNet à 3 couches inceptions. Par rapport à cela nous
 pouvons affirmer que notre modèle GoogleNet donne des résultats
 significativement meilleurs que l'article. Cependant, cette performance est
 insuffisante pour une classification proche de l'être humain.
@@ -461,8 +465,8 @@ insuffisante pour une classification proche de l'être humain.
 Pour revenir à la remarque du tableau \ref{tab:1}, posons-nous la question
 suivante : qu’est-ce que le modèle veut apprendre ? Et bien notre modèle est
 principalement basé sur des convolutions, il cherche donc à apprendre des
-filtres de convolution afin de reconnaitre les caractéristiques d’une image afin
-de pouvoir la classifier selon ces caractéristiques. De plus, à l’aide des
+filtres de convolution afin de reconnaitre les caractéristiques d’une image et
+pouvoir la classifier selon ces caractéristiques. De plus, à l’aide des
 couches de \textit{pooling}, il cherche à réduire l’information inutile qui
 n’est pas en rapport avec les caractéristiques qu’il souhaite apprendre. Or,
 sachant que les chiens ont tous des caractéristiques similaires, notre modèle va
@@ -475,14 +479,14 @@ car il va apprendre sans cesse des caractéristiques qui ne lui apporteront pas
 suffisamment de détails pour classifier les races de chiens de notre jeu de
 données. 
 
-En conclusion de cette analyse, nous pensons qu’il serait justifiable de réduire
+En conclusion de cette analyse, nous pensons qu’il serait préférable de réduire
 au minimum les tailles des filtres de convolution avec les couches de
 \textit{pooling} car ceux-ci font perdre de l’information précieuse. Le problème
 avec cette méthode est que l’information à traiter sera en conséquence plus
 grande et nous aurons besoin d’un réseau beaucoup plus profond que ceux
 utilisables à notre niveau d’un point de vue matériel et temporel. Un jeu de
-données plus grand pourrait également aider dans ce sens pour un apprentissage
-de détail plus profond et pour un risque de surapprentissage plus faible.
+données plus grand pourrait également aider pour un apprentissage
+de détail plus profond et pour réduire le risque de surapprentissage.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
